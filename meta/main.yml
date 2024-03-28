@@ -1,0 +1,27 @@
+---
+dependencies: []
+
+galaxy_info:
+  role_name: docker_stacks
+  author: 0ghny
+  description: install and configure dockge and a systemd-like service to handle docker-compose stacks with a simple configuration file
+  license: "MIT"
+  min_ansible_version: "2.10"
+  platforms:
+    - name: Fedora
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
+        - bookworm
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal
+        - jammy
+  galaxy_tags:
+    - systemd
+    - docker
+    - compose
