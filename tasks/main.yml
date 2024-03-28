@@ -1,0 +1,35 @@
+- name: Docker Stacks | create home directory for docker stacks
+  ansible.builtin.file:
+    path: "{{ docker_stacks_dir }}"
+    state: directory
+    owner: "{{ docker_stacks_owner }}"
+    group: "{{ docker_stacks_group }}"
+    mode: "0755"
+  with_items:
+    - "{{ docker_stacks_dir }}"
+    - "{{ docker_stacks_dir }}/dockge"
+
+- name: Docker Stacks | Stacks service template
+  ansible.builtin.template:
+    src: docker-stack@.service.j2
+    dest: "{{ docker_stacks_dir }}/docker-stack@.service"
+    owner: "{{ docker_stacks_owner }}"
+    group: "{{ docker_stacks_group }}"
+    mode: "0644"
+
+- name: Docker Stacks | enable stacks service
+  ansible.builtin.file:
+    src: "{{ docker_stacks_dir }}/docker-stack@.service"
+    dest: "/etc/systemd/system/docker-stack@.service"
+    state: link
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Docker Stacks | Dockge compose file
+  ansible.builtin.template:
+    src: dockge-compose.yaml.j2
+    dest: "{{ docker_stacks_dir }}/dockge/compose.yaml"
+    owner: "{{ docker_stacks_owner }}"
+    group: "{{ docker_stacks_group }}"
+    mode: "0644"
