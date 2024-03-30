@@ -1,6 +1,6 @@
 - name: Docker Stacks | create home directory for docker stacks
   ansible.builtin.file:
-    path: "{{ docker_stacks_dir }}"
+    path: "{{ item }}"
     state: directory
     owner: "{{ docker_stacks_owner }}"
     group: "{{ docker_stacks_group }}"
