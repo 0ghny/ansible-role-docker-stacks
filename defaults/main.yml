@@ -4,3 +4,6 @@ docker_stacks_dir: "/opt/stacks"
 docker_stacks_owner: "{{ ansible_user }}"
 # if you want to change the owner and group of the docker_stacks_dir
 docker_stacks_group: "{{ ansible_user }}"
+
+# if you want to install dockge stack set this to true
+docker_stacks_dockge_install: false

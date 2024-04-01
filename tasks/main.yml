@@ -7,7 +7,6 @@
     mode: "0755"
   with_items:
     - "{{ docker_stacks_dir }}"
-    - "{{ docker_stacks_dir }}/dockge"
 
 - name: Docker Stacks | Stacks service template
   ansible.builtin.template:
@@ -26,10 +25,7 @@
     group: root
     mode: "0644"
 
-- name: Docker Stacks | Dockge compose file
-  ansible.builtin.template:
-    src: dockge-compose.yaml.j2
-    dest: "{{ docker_stacks_dir }}/dockge/compose.yaml"
-    owner: "{{ docker_stacks_owner }}"
-    group: "{{ docker_stacks_group }}"
-    mode: "0644"
+- name: Stack | Dockge installation
+  ansible.builtin.include_tasks:
+    file: docker-stack.yml
+  when: docker_stacks_dockge_install

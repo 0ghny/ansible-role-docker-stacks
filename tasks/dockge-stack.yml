@@ -1,0 +1,23 @@
+- name: Stack | Dockge create directory
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ docker_stacks_owner }}"
+    group: "{{ docker_stacks_group }}"
+    mode: "0755"
+  with_items:
+    - "{{ docker_stacks_dir }}/dockge"
+
+- name: Stack | Dockge installation
+  ansible.builtin.template:
+    src: dockge-compose.yaml.j2
+    dest: "{{ docker_stacks_dir }}/dockge/compose.yaml"
+    owner: "{{ docker_stacks_owner }}"
+    group: "{{ docker_stacks_group }}"
+    mode: "0644"
+
+- name: Stack | Dockge enable
+  ansible.builtin.systemd:
+    name: docker-stack@dockge
+    enabled: true
+    state: restarted

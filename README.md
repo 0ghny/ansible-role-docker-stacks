@@ -22,6 +22,9 @@ docker_stacks_dir: "/opt/stacks"
 docker_stacks_owner: "{{ ansible_user }}"
 # if you want to change the owner and group of the docker_stacks_dir
 docker_stacks_group: "{{ ansible_user }}"
+
+# if you want to install dockge stack set this to true
+docker_stacks_dockge_install: false
 ```
 
 `docker_stacks_dir` is the directory where stacks will be deployed and configured to be used by [docker-stack@.service](./templates/docker-stack@.service.j2). [dockge](https://github.com/louislam/dockge) is deployed as a stack also here.
@@ -44,12 +47,10 @@ Once this role is installed, you can start/stop/enable/disable stacks using syst
 
 ### Dockge
 
-You can start dockge as `systemctl enable --now docker-stack@dockge` using docker-stacks
+If you wanna installs dockge set `docker_stacks_dockge_install` variable to `true`. It will installs and starts the service so you can manage it as usual
 
 ```shell
-user@host $ sudo systemctl enable docker-stack@dockge
-Created symlink /etc/systemd/system/multi-user.target.wants/docker-stack@dockge.service → /opt/stacks/docker-stack@.service.
-Created symlink /etc/systemd/system/docker-stack@dockge.service → /opt/stacks/docker-stack@.service.
+user@host $ sudo systemctl <command> docker-stack@dockge
 ```
 
 ## Shellx Integration
